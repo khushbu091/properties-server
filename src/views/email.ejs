@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome to [Your Website Name]</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        padding: 20px 0;
+        background-color: #f4f4f4;
+      }
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .header {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .welcome-message {
+        margin-bottom: 20px;
+      }
+      .welcome-message h1 {
+        color: #007bff; /* Example primary color */
+        margin-bottom: 10px;
+      }
+
+      .otp-n {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 24px;
+      }
+
+      .otp-box img {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        width: 100px; /* Adjust width */
+        height: auto; /* Maintain aspect ratio */
+      }
+
+      p {
+        margin-bottom: 15px;
+        font-size: 16px;
+      }
+
+      .footer {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 0.8em;
+        color: #777;
+      }
+
+      @media screen and (max-width: 480px) {
+        .container {
+          padding: 15px;
+        }
+        .header h2 {
+          font-size: 1.3em;
+        }
+        p {
+          font-size: 14px;
+        }
+        .welcome-message h1 {
+          font-size: 1.8em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h2>Welcome to [Your Website Name]!</h2>
+      </div>
+      <div class="welcome-message">
+        <h1>Welcome, <%= name %>!</h1>
+        <p>Thank you for joining our community. We're excited to have you.</p>
+      </div>
+
+      <div class="otp-box">
+        <img src="../../e-1.png" alt="OTP Image" />
+      </div>
+      <div class="otp-n">
+        <h3><%= otp %>!</h3>
+      </div>
+      <p>
+        Please use the OTP image above to complete your verification process.
+        This OTP is valid for 15 minutes.
+      </p>
+      <p>Do not share it with anyone.</p>
+      <div class="footer">
+        <p>This email was sent from [Your Website Name].</p>
+        <p>If you did not request this OTP, please ignore this email.</p>
+      </div>
+    </div>
+  </body>
+</html>
