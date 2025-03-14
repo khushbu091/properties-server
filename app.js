@@ -18,6 +18,8 @@ app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 app.use(express.static(path.join(__dirname, "./public")));
 // app.use(express.static(path.join(__dirname, "./public/build")));
 
+app.use("/", require("./src/routes/routes"));
+
 db.sequelize
   .sync()
   .then(() => console.log("Database connected and synced"))

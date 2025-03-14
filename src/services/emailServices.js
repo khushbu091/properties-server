@@ -1,5 +1,4 @@
 const nodemailer = require("nodemailer");
-const config = require("../../config/config");
 const ejs = require("ejs");
 const path = require("path");
 require("dotenv").config();
