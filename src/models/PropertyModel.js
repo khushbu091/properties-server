@@ -48,6 +48,9 @@ module.exports = (sequelize, DataTypes) => {
       address: {
         type: DataTypes.STRING,
       },
+      main_img: {
+        type: DataTypes.STRING,
+      },
       approve: {
         type: DataTypes.BOOLEAN,
         defaultValue: false,

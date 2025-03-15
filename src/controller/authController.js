@@ -217,5 +217,76 @@ const resendOtpEmail = async (req, res) => {
     });
   }
 };
+const forgotPassword = async (req, res) => {
+  try {
+    const { email } = req.body;
 
-module.exports = { loginUser, userRegister, verifyOTP, resendOtpEmail };
+    // Find user by email
+    const user = await User.findOne({ where: { email } });
+    if (!user) {
+      return res.status(404).json({ status: false, message: "User not found" });
+    }
+
+    // Generate OTP and expiration time
+    const otp = generateOTP(); // 6-digit OTP
+    const expirationTime = new Date(Date.now() + 15 * 60 * 1000); // 15 min expiry
+
+    // Update user with OTP and expiration time
+    await user.update({ otp, otpExpirationTime: expirationTime });
+
+    // Send OTP email
+    sendOtpEmail(user.name, user.email, otp);
+
+    res.status(200).json({
+      status: true,
+      message: "OTP sent successfully. Check your email.",
+    });
+  } catch (error) {
+    console.error("Forgot Password Error:", error);
+    res.status(500).json({ status: false, message: "Something went wrong" });
+  }
+};
+const resetPassword = async (req, res) => {
+  try {
+    const { email, otp, newPassword } = req.body;
+
+    // Find user by email
+    const user = await User.findOne({ where: { email } });
+    if (!user) {
+      return res.status(404).json({ status: false, message: "User not found" });
+    }
+
+    // Check if OTP is valid and not expired
+    if (!user.otp || user.otp !== otp || new Date() > user.otpExpirationTime) {
+      return res
+        .status(400)
+        .json({ status: false, message: "Invalid or expired OTP" });
+    }
+
+    // Hash new password
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    // Update user's password & clear OTP
+    await user.update({
+      password: hashedPassword,
+      otp: null,
+      otpExpirationTime: null,
+    });
+
+    res
+      .status(200)
+      .json({ status: true, message: "Password reset successfully" });
+  } catch (error) {
+    console.error("Reset Password Error:", error);
+    res.status(500).json({ status: false, message: "Something went wrong" });
+  }
+};
+
+module.exports = {
+  loginUser,
+  userRegister,
+  verifyOTP,
+  resendOtpEmail,
+  forgotPassword,
+  resetPassword,
+};

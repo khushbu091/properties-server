@@ -9,7 +9,6 @@ module.exports = (sequelize, DataTypes) => {
       },
       property_type: {
         type: DataTypes.STRING,
-        allowNull: false,
       },
     },
     {
